@@ -1,0 +1,70 @@
+Screen_Subclasses
+//list of subclasses for screen component
+>Feed screen   
+    >>other peoples posts
+        >>>popular posts
+        >>>friends posts
+        >>>recent posts
+        >>>post interactions
+    >>other peoples interactions
+    >>profile suggestions (people to follow)
+>Profile screen
+    >>edit option
+        >>>change photo
+        >>>bio
+        >>>edit posts
+        >>>privacy
+    >>preference screen
+        >>>langauge
+        >>>Light/dark mode (?)
+        >>>public/private
+        >>>push notifications (?)
+>Search feed screen
+    >>Search profiles
+        >>>reccomended
+    >>Search posts
+        >>>key words, etc
+    >>Search topics
+    >>Search for assistance with app
+>Private Message screen
+    >>Messages between two people
+    >>messages between groups
+>History Screen
+    >>post History
+    >>comment History
+    >>upvote/downvote History
+>Creating Post Screen
+    >>Textbox
+    >>Image insert
+    >>privacy settings
+        >>>public
+        >>>private
+        >>>followers only
+        >>>friends only
+>Edit post screen
+    >>Edit text on post
+    >>Edit images attatched to post
+>Sign up screen
+    >>for first time users/users without an account
+>Login screen
+>setting screen
+    >>privacy
+        >>>public
+        >>>private
+        >>>anonymous (?)
+    >>langauge
+    >>light/dark mode
+    >>push notifications
+    >>app timer
+    >>data
+        >>>time spent on app
+        >>>amount of upvotes
+        >>>amount of downvotes
+        >>>amount of comments
+        >>>amount of posts
+        >>>averages
+>Loading Screen
+    >>While user input is being processed
+>Error Screen
+    >>When an input is invalid
+    >>when an input fails
