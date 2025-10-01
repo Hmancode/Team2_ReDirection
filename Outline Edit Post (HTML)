@@ -1,0 +1,18 @@
+<div class="post" id="post-1">
+  <p id="content-1">I didn’t get an interview after 20 applications.</p>
+  <button onclick="startEdit(1)">Edit</button>
+</div>
+
+<script>
+function startEdit(postId) {
+  const contentElem = document.getElementById(`content-${postId}`);
+  const currentText = contentElem.innerText;
+  
+  const newText = prompt("Edit your post:", currentText);
+  if (newText !== null) {
+    console.log(`Edited post ${postId} with new content: ${newText}`);
+    // Later: update UI and backend
+  }
+}
+</script>
+
