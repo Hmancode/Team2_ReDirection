@@ -1,0 +1,12 @@
+def edit_post(self, post_id, new_content):
+    post = next((p for p in self.posts if p["id"] == post_id), None)
+    if post:
+        post["content"] = new_content
+        print(f"Post ID {post_id} updated.")
+    else:
+        print(f"No post found with ID {post_id}.")
+
+# Add; handle_input: 
+if action == "edit":
+    new_content = input_data.get("new_content")
+    self.edit_post(post_id, new_content)
