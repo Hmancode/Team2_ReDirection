@@ -1,0 +1,40 @@
+class MainFeedScreen(ScreenComponent):
+    def __init__(self):
+        self.posts = [
+            {"id": 1, "content": "I didn’t get an interview after 20 applications.", "downvotes": 0},
+            {"id": 2, "content": "My presentation was a disaster.", "downvotes": 0},
+            {"id": 3, "content": "Got rejected because of a typo.", "downvotes": 0},
+        ]
+
+    def render(self):
+        print("=== Anonymous Feed ===")
+        for post in self.posts:
+            print(f"Post ID {post['id']}: {post['content']} (Downvotes: {post['downvotes']})")
+            print("Buttons: [Downvote] [Delete] [Edit]\n")
+
+    def downvote(self, post_id):
+        post = next((p for p in self.posts if p["id"] == post_id), None)
+        if post:
+            post["downvotes"] += 1
+            print(f"Post ID {post_id} downvoted! Total downvotes: {post['downvotes']}")
+        else:
+            print(f"Post ID {post_id} not found.")
+
+    def handle_input(self, input_data):
+        action = input_data.get("action")
+        post_id = input_data.get("post_id")
+
+        if action == "downvote":
+            self.downvote(post_id)
+        # You can keep other actions for later here
+
+# Demo use:
+if __name__ == "__main__":
+    screen = MainFeedScreen()
+    screen.render()
+
+    # Simulate downvoting post with ID 1
+    screen.handle_input({"action": "downvote", "post_id": 1})
+    screen.render()
+
+
