@@ -1,0 +1,56 @@
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
+
+public class PostTable implements Serializable {
+    private static final long serialVersionUID = 1L;
+
+    private List<Post> posts = new ArrayList<>();
+
+    public void addPost(Post p) {
+        posts.add(p);
+    }
+
+    public List<Post> getPosts() {
+        return posts;
+    }
+
+    public void displayPosts() {
+        if (posts.isEmpty()) {
+            System.out.println("No posts yet.");
+            return;
+        }
+        for (Post p : posts) {
+            System.out.println(p);
+        }
+    }
+
+    // STATIC loader that returns a PostTable
+    public static PostTable loadFromFile(String filename) {
+        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(filename))) {
+            Object obj = in.readObject();
+            if (obj instanceof PostTable) {
+                return (PostTable) obj;
+            } else {
+                // file exists but content is unexpected: start fresh
+                return new PostTable();
+            }
+        } catch (FileNotFoundException e) {
+            // no saved file yet -> return empty table
+            return new PostTable();
+        } catch (Exception e) {
+            System.out.println("Warning: failed to load saved posts (" + e.getMessage() + "). Starting fresh.");
+            return new PostTable();
+        }
+    }
+
+    // Save this instance to disk
+    public void saveToFile(String filename) {
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(filename))) {
+            out.writeObject(this);
+            System.out.println("Posts saved to " + filename);
+        } catch (Exception e) {
+            System.out.println("Error saving posts: " + e.getMessage());
+        }
+    }
+}
