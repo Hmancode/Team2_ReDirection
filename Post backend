@@ -1,0 +1,36 @@
+import java.io.Serializable;
+import java.time.LocalDateTime;
+
+public class Post implements Serializable {
+    private static final long serialVersionUID = 1L;
+
+    private String username;
+    private String text;
+    private LocalDateTime timestamp;
+    private int likes;
+    private int comments;
+
+    public Post(String username, String text) {
+        this.username = username;
+        this.text = text;
+        this.timestamp = LocalDateTime.now();
+        this.likes = 0;
+        this.comments = 0;
+    }
+
+    public String getUsername() { return username; }
+    public String getText() { return text; }
+    public LocalDateTime getTimestamp() { return timestamp; }
+    public int getLikes() { return likes; }
+    public int getComments() { return comments; }
+
+    public void like() { likes++; }
+    public void comment() { comments++; }
+
+    @Override
+    public String toString() {
+        return "Post by @" + username + " at " + timestamp +
+               "\nText: " + text +
+               "\nLikes: " + likes + ", Comments: " + comments + "\n";
+    }
+}
