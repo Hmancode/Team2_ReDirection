@@ -43,11 +43,11 @@ def launch_signup():
         confirm = entries["Confirm Password"].get()
 
         if not username or not password or not confirm:
-            messagebox.showerror("Error", "All fields are required.")
+            messagebox.showerror("Something Went Wrong", "All fields are required.")
             return
 
         if password != confirm:
-            messagebox.showerror("Error", "Passwords do not match.")
+            messagebox.showerror("Something went Wrong", "Passwords do not match.")
             return
 
         if db.register(username, password):
