@@ -1,6 +1,5 @@
 import java.util.Scanner;
 
-//This is the main file that requires you login before you post or view your feed
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -50,15 +49,16 @@ public class Main {
             System.out.println("\n--- Menu ---");
             System.out.println("1. Create a new post");
             System.out.println("2. View all posts");
-            System.out.println("3. Logout and Exit");
+            System.out.println("3. Interact with post");
+            System.out.println("4. save and exit");
             System.out.print("Choose an option: ");
             String choice = scanner.nextLine();
 
-            switch (choice) {
+            switch (choice) { //create new post
                 case "1":
                     System.out.print("Enter your post text: ");
-                    String text = scanner.nextLine();
-                    postTable.addPost(new Post(loggedInUser, text));
+                    String text = scanner.nextLine(); //takes user input
+                    postTable.addPost(new Post(loggedInUser, text)); 
                     System.out.println(" Post created!");
                     break;
 
@@ -67,7 +67,63 @@ public class Main {
                     postTable.displayPosts();
                     break;
 
-                case "3":
+                
+                case "3": 
+                    System.out.println("\n--- Interact with a Post ---");
+                    postTable.displayPosts(); // Show posts with indexes or IDs
+
+                    System.out.print("Enter the post number to interact with: ");
+                    try {
+                        int index = Integer.parseInt(scanner.nextLine());
+                        if (index >= 0 && index < postTable.getPosts().size()) {
+                        Post post = postTable.getPosts().get(index);
+
+                        boolean interacting = true;
+                        while (interacting) {
+                        System.out.println("\nYou selected @" + post.getUsername() + "'s post:");
+                        System.out.println(post);
+                        System.out.println("Choose an action:");
+                        System.out.println("1. Like ");
+                        System.out.println("2. Downvote ");
+                        System.out.println("3. Comment ");
+                        System.out.println("4. Go back");
+                        System.out.print("Enter choice: ");
+
+                        String action = scanner.nextLine();
+
+                        switch (action) {
+                            case "1":
+                                post.like();
+                                System.out.println("You liked the post!");
+                                break;
+                            case "2":
+                                post.downvote();
+                                System.out.println("You downvoted the post.");
+                                break;
+                            case "3":
+                                System.out.print("Enter your comment: ");
+                                String commentText = scanner.nextLine();
+                                post.comment(loggedInUser, commentText);
+                                System.out.println("Comment added!");
+                                break;
+                            case "4":
+                                interacting = false;
+                                break;
+                            default:
+                                System.out.println("Invalid choice. Try again.");
+                        }
+
+                        // Save after each interaction
+                        postTable.saveToFile("posts.dat");
+                        }
+                        } else {
+                        System.out.println("Invalid post number.");
+                        }
+                    } catch (NumberFormatException e) {
+                      System.out.println("Please enter a valid number.");
+                    }
+                    break;
+                case "4":
                     System.out.println("Saving data...");
                     postTable.saveToFile("posts.dat");
                     System.out.println("Logging out...");
