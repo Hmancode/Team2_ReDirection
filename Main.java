@@ -5,6 +5,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         UserDatabase userDB = new UserDatabase();
         PostTable postTable = PostTable.loadFromFile("posts.dat");
+        User user = null;
 
         System.out.println("Welcome to ReDirection!");
 
@@ -31,6 +32,7 @@ public class Main {
                 String password = scanner.nextLine();
                 if (userDB.login(username, password)) {
                     loggedInUser = username;
+                    user = new User(username);
                     System.out.println("🎉 Logged in as @" + username);
                 }
 
@@ -50,7 +52,8 @@ public class Main {
             System.out.println("1. Create a new post");
             System.out.println("2. View all posts");
             System.out.println("3. Interact with post");
-            System.out.println("4. save and exit");
+            System.out.println("4. Feed (view and interacct with posts)");
+            System.out.println("5. save and exit");
             System.out.print("Choose an option: ");
             String choice = scanner.nextLine();
 
@@ -68,7 +71,7 @@ public class Main {
                     break;
 
                 
-                case "3": 
+                case "3": // this should be replaced with "see feed" and on the feed you can choose to interact with a pose -hj
                     System.out.println("\n--- Interact with a Post ---");
                     postTable.displayPosts(); // Show posts with indexes or IDs
 
@@ -124,6 +127,11 @@ public class Main {
                     }
                     break;
                 case "4":
+                    System.out.println("\n--- Feed ---");
+                    user.getFeed().display(postTable);
+                    // display posts in feed
+                    break;
+                case "5":
                     System.out.println("Saving data...");
                     postTable.saveToFile("posts.dat");
                     System.out.println("Logging out...");
