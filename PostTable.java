@@ -48,7 +48,7 @@ public class PostTable implements Serializable {
     public void saveToFile(String filename) {
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(filename))) {
             out.writeObject(this);
-            System.out.println("Posts saved to " + filename);
+            System.out.println(" Posts saved to " + filename);
         } catch (Exception e) {
             System.out.println("Error saving posts: " + e.getMessage());
         }
