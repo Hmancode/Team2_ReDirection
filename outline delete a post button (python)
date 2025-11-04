@@ -1,0 +1,14 @@
+# builds on MainFeedScreen
+
+  def delete_post(self, post_id):
+    original_count = len(self.posts)
+    self.posts = [p for p in self.posts if p["id"] != post_id]
+    if len(self.posts) < original_count:
+        print(f"Post ID {post_id} deleted.")
+    else:
+        print(f"No post found with ID {post_id}.")
+
+# Adding in handle_input: 
+if action == "delete":
+    self.delete_post(post_id)
+

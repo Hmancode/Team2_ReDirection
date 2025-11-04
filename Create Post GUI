@@ -1,0 +1,138 @@
+// PostGUI.java
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.util.ArrayList;
+
+public class PostGUI {
+    private JFrame frame;
+    private DefaultListModel<Post> postListModel;
+    private JList<Post> postJList;
+    private java.util.List<Post> posts;
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> new PostGUI().createAndShowGUI());
+    }
+
+    public void createAndShowGUI() {
+        posts = new ArrayList<>();
+
+        frame = new JFrame("Post Manager");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(600, 400);
+        frame.setLayout(new BorderLayout());
+
+        postListModel = new DefaultListModel<>();
+        postJList = new JList<>(postListModel);
+        JScrollPane scrollPane = new JScrollPane(postJList);
+
+        frame.add(scrollPane, BorderLayout.CENTER);
+        frame.add(createButtonPanel(), BorderLayout.SOUTH);
+
+        frame.setVisible(true);
+    }
+
+    private JPanel createButtonPanel() {
+        JPanel panel = new JPanel();
+
+        JButton createBtn = new JButton("Create Post");
+        JButton editBtn = new JButton("Edit Post");
+        JButton deleteBtn = new JButton("Delete Post");
+        JButton viewBtn = new JButton("View Post");
+
+        createBtn.addActionListener(e -> createPost());
+        editBtn.addActionListener(e -> editPost());
+        deleteBtn.addActionListener(e -> deletePost());
+        viewBtn.addActionListener(e -> viewPost());
+
+        panel.add(createBtn);
+        panel.add(editBtn);
+        panel.add(deleteBtn);
+        panel.add(viewBtn);
+
+        return panel;
+    }
+
+    private void createPost() {
+        Post post = showPostDialog(null);
+        if (post != null) {
+            posts.add(post);
+            postListModel.addElement(post);
+        }
+    }
+
+    private void editPost() {
+        Post selected = postJList.getSelectedValue();
+        if (selected == null) {
+            JOptionPane.showMessageDialog(frame, "Select a post to edit.");
+            return;
+        }
+
+        Post updated = showPostDialog(selected);
+        if (updated != null) {
+            selected.setTitle(updated.getTitle());
+            selected.setBody(updated.getBody());
+            selected.setAccount(updated.getAccount());
+            postJList.repaint();
+        }
+    }
+
+    private void deletePost() {
+        Post selected = postJList.getSelectedValue();
+        if (selected != null) {
+            posts.remove(selected);
+            postListModel.removeElement(selected);
+        } else {
+            JOptionPane.showMessageDialog(frame, "Select a post to delete.");
+        }
+    }
+
+    private void viewPost() {
+        Post selected = postJList.getSelectedValue();
+        if (selected == null) {
+            JOptionPane.showMessageDialog(frame, "Select a post to view.");
+            return;
+        }
+
+        String details = "Title: " + selected.getTitle() +
+                         "\nAuthor: " + selected.getAccount() +
+                         "\n\nBody:\n" + selected.getBody() +
+                         "\n\nCreated At: " + selected.getCreatedAt() +
+                         "\nUpdated At: " + selected.getUpdatedAt();
+
+        JOptionPane.showMessageDialog(frame, details, "Post Details", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    private Post showPostDialog(Post existing) {
+        JTextField accountField = new JTextField(existing != null ? existing.getAccount() : "");
+        JTextField titleField = new JTextField(existing != null ? existing.getTitle() : "");
+        JTextArea bodyArea = new JTextArea(existing != null ? existing.getBody() : "", 5, 20);
+        JScrollPane bodyScroll = new JScrollPane(bodyArea);
+
+        JPanel panel = new JPanel(new GridLayout(0, 1));
+        panel.add(new JLabel("Account:"));
+        panel.add(accountField);
+        panel.add(new JLabel("Title:"));
+        panel.add(titleField);
+        panel.add(new JLabel("Body:"));
+        panel.add(bodyScroll);
+
+        int result = JOptionPane.showConfirmDialog(frame, panel, 
+                existing == null ? "Create Post" : "Edit Post", JOptionPane.OK_CANCEL_OPTION);
+
+        if (result == JOptionPane.OK_OPTION) {
+            String account = accountField.getText().trim();
+            String title = titleField.getText().trim();
+            String body = bodyArea.getText().trim();
+
+            if (account.isEmpty() || title.isEmpty()) {
+                JOptionPane.showMessageDialog(frame, "Account and Title are required.");
+                return null;
+            }
+
+            return new Post(account, title, body);
+        }
+
+        return null;
+    }
+}

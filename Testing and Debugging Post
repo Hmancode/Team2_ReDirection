@@ -1,0 +1,95 @@
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+public class PostTest {
+
+    private Post post;
+
+    @BeforeEach
+    public void setup() {
+        post = new Post("author1", "Initial Title", "Initial Body");
+    }
+
+    @Test
+    public void testPostCreation() {
+        assertNotNull(post.getId());
+        assertEquals("author1", post.getAccount());
+        assertEquals("Initial Title", post.getTitle());
+        assertEquals("Initial Body", post.getBody());
+        assertNotNull(post.getCreatedAt());
+        assertNotNull(post.getUpdatedAt());
+    }
+
+    @Test
+    public void testEditPostUpdatesTitleAndBody() throws InterruptedException {
+        // Simulate a time delay for timestamp difference
+        Thread.sleep(10);
+        post.setTitle("Updated Title");
+        post.setBody("Updated Body");
+
+        assertEquals("Updated Title", post.getTitle());
+        assertEquals("Updated Body", post.getBody());
+        assertTrue(post.getUpdatedAt().after(post.getCreatedAt()));
+    }
+
+    @Test
+    public void testPostDeletionFromList() {
+        List<Post> postList = new ArrayList<>();
+        postList.add(post);
+        assertEquals(1, postList.size());
+
+        postList.remove(post);
+        assertEquals(0, postList.size());
+    }
+
+    @Test
+    public void testPostViewsIncrementCorrectly() {
+        post.view();
+        post.view();
+        post.view();
+        assertEquals(3, post.getViews());
+    }
+
+    @Test
+    public void testPostLikesIncrementCorrectly() {
+        post.like();
+        post.like();
+        assertEquals(2, post.getLikes());
+    }
+
+    @Test
+    public void testUpdatedAtChangesOnEdit() throws InterruptedException {
+        Date originalUpdatedAt = post.getUpdatedAt();
+        Thread.sleep(10);
+        post.setTitle("Another Title");
+
+        assertTrue(post.getUpdatedAt().after(originalUpdatedAt));
+    }
+
+    @Test
+    public void testToStringContainsTitleAndAuthor() {
+        String str = post.toString();
+        assertTrue(str.contains("Initial Title"));
+        assertTrue(str.contains("author1"));
+    }
+
+    @Test
+    public void testMultiplePostsMaintainIntegrity() {
+        Post post2 = new Post("user2", "Second Post", "Second Body");
+        Post post3 = new Post("user3", "Third Post", "Third Body");
+
+        List<Post> posts = new ArrayList<>();
+        posts.add(post);
+        posts.add(post2);
+        posts.add(post3);
+
+        assertEquals(3, posts.size());
+        assertEquals("user3", posts.get(2).getAccount());
+    }
+}

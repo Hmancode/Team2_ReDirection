@@ -1,0 +1,100 @@
+Header Outline
+
+>Baseline Header 
+    >>This holds all logos/images/names (reusble items)
+        >>>ReDirection logos
+        >>>Redirection name
+        >>>images
+        >>>Color pallette
+        >>>fonts
+            >>>>Heading fonts
+            >>>>textpost fonts
+            >>>>setting fonts
+        >>>toolbar //will be visible everywhere besides login
+            >>>>settings
+            >>>>profile
+            >>>>feed
+            >>>>Search
+            >>>>sign in
+            >>>>sign out
+
+//All of these classes inherit the traits from baseline
+
+>Homescreen Header
+    >>logo
+    >>name
+    >>Log in icon
+>Feed Header
+    >>profile buttons (on each post)
+    >>attatchment enlarge button
+    >>tool bar
+    >>logo 
+    >>name
+>Profile Header
+    >>edit profile (takes you to screen)
+    >>Englarge profile picture
+    >>view posts
+    >>view upvotes
+    >>view downvotes
+    >>settings button
+    >>tool bar
+    >>logo
+    >>name
+>Settings Header
+    >>preferences button
+    >>notifications button
+    >>stats button
+    >>toolbar
+    >>logo
+    >>name
+>Private Messaging Header
+    >>button for each individual conversation
+    >>start new message button
+    >>start group message button
+    >>delete message button
+    >>message anonymously button (?)
+    >>toolbar
+    >>logo
+    >>name
+>Feed Search Header
+    >>search bar Textbox
+    >>results (buttons, clickable options)
+    >>clear button
+    >>toolbar
+    >>logo
+    >>name
+>Create Post Header
+    >>post button
+    >>cancel button
+    >>schedule post button(?)
+        >>> time button
+    >>edit text box
+    >>insert external media button
+    >>toolbar
+    >>logo
+    >name
+>Edit Post Header
+    >>delete button
+    >>save button
+    >>text box editor
+    >>external media editor
+    >>toolbar
+    >>logo
+    >>name
+>Edit Profile Header
+    >>Username Textbox
+    >>profile photo button
+    >>bio text box
+    >>save button
+    >>cancel button
+    >>exit button
+    >>toolbar
+    >>logo
+    >>name
+>Errorscreen Header
+    >>Reload button
+    >>logo
+    >>name
+>Loadingscreen header
+    >>logo
+    >>name

@@ -1,0 +1,36 @@
+Posting_Forum_Screen
+//subclass of screen
+>create post
+    >>text box
+    >>post option
+    >>delete option
+    >>upload external media
+        >>>images, pdfs, links, etc
+>edit post
+    >>text box
+    >>repost option
+    >>save button
+    >>delete option
+    >>upload external media
+>delete post
+    >>removes post from feed
+    >>removes post from profile
+>post settings
+    >>private
+        >>>a post that only you can see 
+        >>>a draft of a post
+    >>friends
+        >>>a post that only people who follow you and you follow back can see
+    >>followers
+        >>>a post that only your followers can see
+    >>public
+        >>>a post that everyone with the app can see
+    >>comments
+        >>>Block comments
+            >>>>No users can comment on your specific post
+        >>>limit comments to friends
+            >>>>only friends can comment on given post
+        >>>limit comments to followers
+            >>>>only followers can comment on given post
+        >>>public comments
+            >>>>everyone can comment on given post
