@@ -1,0 +1,42 @@
+import javax.swing.*;
+import java.awt.*;
+
+public class RedirectionToolbar {
+
+    public static void main(String[] args) {
+        // Create main frame
+        JFrame frame = new JFrame("Redirection Toolbar");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(700, 400); // Reasonable default size
+        frame.setLocationRelativeTo(null); // Center on screen
+
+        // Create toolbar
+        JToolBar toolbar = new JToolBar("Main Toolbar");
+        toolbar.setFloatable(false); // Fixed toolbar
+
+        // Toolbar buttons/components
+        JButton settingsButton = new JButton("Settings");
+        JButton preferencesButton = new JButton("Preferences");
+        JButton profileButton = new JButton("Profile");
+        JButton messagesButton = new JButton("Messages");
+
+        // Add buttons to toolbar
+        toolbar.add(settingsButton);
+        toolbar.add(preferencesButton);
+        toolbar.add(profileButton);
+        toolbar.add(messagesButton);
+
+        // Main panel
+        JPanel mainPanel = new JPanel(new BorderLayout());
+        mainPanel.add(toolbar, BorderLayout.NORTH);
+
+        // Placeholder content area
+        JTextArea textArea = new JTextArea("Content area for Redirection app...");
+        textArea.setEditable(false);
+        mainPanel.add(new JScrollPane(textArea), BorderLayout.CENTER);
+
+        // Set panel as frame content and show
+        frame.setContentPane(mainPanel);
+        frame.setVisible(true);
+    }
+}
