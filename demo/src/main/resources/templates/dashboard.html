@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Redirection</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .logo {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 24px;
+            color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <!-- Logo in Top-Left Corner -->
+    <div class="fixed top-4 left-4 z-50">
+        <a href="/dashboard" class="logo hover:shadow-lg transition duration-300 transform hover:scale-110">
+            R
+        </a>
+    </div>
+
+    <div class="max-w-6xl mx-auto">
+        <!-- Header -->
+        <div class="bg-white rounded-xl shadow-2xl p-8 md:p-12 border-t-8 border-indigo-600 mb-8 text-center">
+            <h1 class="text-5xl md:text-6xl font-extrabold text-indigo-700 mb-4">Redirection</h1>
+            <p class="text-gray-600 text-lg" th:text="|Welcome, ${username}!|">Welcome back!</p>
+            <p class="text-gray-500 text-sm mt-2">Navigate to explore different sections of our community</p>
+        </div>
+
+        <!-- Main Navigation Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <!-- Community Feed Card -->
+            <a href="/allposts" class="group">
+                <div class="bg-white rounded-xl shadow-lg p-8 h-full border-t-8 border-indigo-600 hover:shadow-2xl transition duration-300 transform hover:scale-105 cursor-pointer">
+                    <h2 class="text-2xl font-bold text-indigo-700 mb-2">Community Feed</h2>
+                    <p class="text-gray-600">Explore posts from the community, upvote interesting discussions, and share your thoughts with comments.</p>
+                    <div class="mt-4 inline-flex items-center text-indigo-600 font-semibold group-hover:translate-x-2 transition duration-300">
+                        Visit Feed →
+                    </div>
+                </div>
+            </a>
+
+            <!-- Professional Resources Card -->
+            <a href="/resources" class="group">
+                <div class="bg-white rounded-xl shadow-lg p-8 h-full border-t-8 border-purple-600 hover:shadow-2xl transition duration-300 transform hover:scale-105 cursor-pointer">
+                    <h2 class="text-2xl font-bold text-purple-700 mb-2">Professional Resources</h2>
+                    <p class="text-gray-600">Access curated learning materials, guides, and tools to help you grow professionally.</p>
+                    <div class="mt-4 inline-flex items-center text-purple-600 font-semibold group-hover:translate-x-2 transition duration-300">
+                        Explore Resources →
+                    </div>
+                </div>
+            </a>
+
+            <!-- People Card -->
+            <a href="/people" class="group">
+                <div class="bg-white rounded-xl shadow-lg p-8 h-full border-t-8 border-pink-600 hover:shadow-2xl transition duration-300 transform hover:scale-105 cursor-pointer">
+                    <h2 class="text-2xl font-bold text-pink-700 mb-2">People</h2>
+                    <p class="text-gray-600">Connect with other community members, view profiles, and build meaningful professional relationships.</p>
+                    <div class="mt-4 inline-flex items-center text-pink-600 font-semibold group-hover:translate-x-2 transition duration-300">
+                        Browse People →
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">Quick Actions</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <a href="/posts" class="bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-lg transition duration-300 text-center">
+                    Create a New Post
+                </a>
+                <a href="/profile" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-6 rounded-lg transition duration-300 text-center">
+                    View My Profile
+                </a>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="bg-white rounded-xl shadow-lg p-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+            <p class="text-gray-600 text-sm">
+                © 2025 Redirection Community. All rights reserved.
+            </p>
+            <form action="/logout" method="post">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                <button type="submit" class="px-6 py-2 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg transition duration-300">
+                    Logout
+                </button>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>

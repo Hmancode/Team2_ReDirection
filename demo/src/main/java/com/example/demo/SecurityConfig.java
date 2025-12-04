@@ -51,7 +51,7 @@ public class SecurityConfig {
             // 3. Form Login Configuration
             .formLogin(form -> form
                 .loginPage("/login")
-                .defaultSuccessUrl("/allposts", true) 
+                .defaultSuccessUrl("/dashboard", true) 
                 .permitAll()
             )
             
