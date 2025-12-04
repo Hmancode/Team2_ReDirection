@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+</head>
+<body>
+
+<h2>Login</h2>
+
+<form method="post" action="/login">
+    <input type="hidden" name="_csrf" value="${_csrf.token}">
+
+    <label>Username:</label>
+    <input type="text" name="username" required>
+
+    <label>Password:</label>
+    <input type="password" name="password" required>
+
+    <button type="submit">Login</button>
+
+    <p style="color:red;" th:if="${param.error}">Invalid username or password</p>
+
+
+</form>
+
+
+</body>
+</html>

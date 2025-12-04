@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Forum Main Menu</title>
+</head>
+<body>
+
+    <h2>Welcome to the Forum!</h2>
+    <p>Please choose an option:</p>
+
+    <a href="/profile">
+        <button type="button">Option A: View My Profile</button>
+    </a>
+    
+    <a href="/posts">
+        <button type="button">Option B: Go to Posting Feed</button>
+    </a>
+
+    <br><br>
+    <form action="/logout" method="post">
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+        <button type="submit">Logout</button>
+    </form>
+
+</body>
+</html>

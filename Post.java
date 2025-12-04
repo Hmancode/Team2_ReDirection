@@ -1,3 +1,5 @@
+package com.redirection.app.model;
+
 import java.io.Serializable;
 import java.io.IOException;
 import java.io.ObjectInputStream;
