@@ -53,8 +53,5 @@ public class PostTable implements Serializable {
             System.out.println("Error saving posts: " + e.getMessage());
         }
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> e2d43645516bf596a67f7c54bf6af72860814441
+
