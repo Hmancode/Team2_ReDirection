@@ -1,0 +1,48 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        PostTable table = PostTable.loadFromFile("posts.dat");
+
+        System.out.println("\nWelcome to the Mini Social Media Platform!");
+
+        boolean running = true;
+        while (running) {
+            System.out.println("\n--- Menu ---");
+            System.out.println("1. Create a new post");
+            System.out.println("2. View all posts");
+            System.out.println("3. Exit");
+            System.out.print("Choose an option: ");
+            String choice = scanner.nextLine().trim();
+
+            switch (choice) {
+                case "1":
+                    System.out.print("Enter your username (no @): ");
+                    String username = scanner.nextLine().trim();
+                    System.out.print("Enter your post text: ");
+                    String text = scanner.nextLine().trim();
+                    if (username.isEmpty() || text.isEmpty()) {
+                        System.out.println("Username and text cannot be empty.");
+                    } else {
+                        table.addPost(new Post(username, text));
+                        System.out.println("Post created!");
+                    }
+                    break;
+                case "2":
+                    System.out.println("\n--- All Posts ---");
+                    table.displayPosts();
+                    break;
+                case "3":
+                    System.out.println("Saving posts and exiting...");
+                    table.saveToFile("posts.dat");
+                    running = false;
+                    break;
+                default:
+                    System.out.println("Invalid choice, try 1, 2, or 3.");
+            }
+        }
+
+        scanner.close();
+    }
+}

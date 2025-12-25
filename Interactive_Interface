@@ -1,0 +1,78 @@
+Interactive_Interface
+HOME PAGE
+    >NOT LOGGED IN 
+        >>prompt user: sign in or log in
+            >>sign in
+                >>enter in username and password
+                >>search for username in saved database
+                >>check password entered against password that is linked to stored username
+                >>if valid, change screens to logged in homepage (below)
+                >>if invalid, change screens to error messgae
+            >>create account
+                >>ensure username is UNIQUE, does not already exist in database
+                >>link password to username
+                >>once password is created, take to sign in screen where user signs in using new username and password
+    >ALREADY LOGGED IN
+        >>logo and name
+        >>toolbar (detailed in header outline)
+            >>>options on toolbar (settings, profile, feed, search, driect message (?))
+                >>>>you can click on any of these options at any time (this toolbar remains
+                    at the bottom of the screen everywhere except the login screen) and when you 
+                    click on them it takes you to that screen
+SETTINGS 
+    >Bring to settings screen, which lists prompts:
+        >>preferences dialogue selected
+            >>>languages (if selected list languages)
+            >>>content preferences 
+                >>>if selected, fetch data gathered on the users preferences (this might be something we do when we create the account)
+                 >>>display data on a graphical interface. Prompt user to select/deselect topics/preferences
+                 >>>Once submitted, overwrite old user preferences with what was selected
+                 >>>store updated data under the users data 
+            >>>push notifications
+                >>Prompt user option to push notifications
+                >>if yes, update user data and save
+                >>if no, update user data and save
+        >>statistics (all just viewing, none of this data is mutable)
+            >>>upvotes/downvotes History
+            >>>commenting History
+            >>>posting history
+        >>privacy
+            >>if public selected    
+                >>remove privacy restrictions on posts
+                >>update profile visibility
+            >>if private selected
+                >>remove non follolwers from viewing posts
+                >>update profile visibility
+        >>deactivate account
+            >>>confirm deactivation prompt
+                >>>>IF CONFIRMED, remove account from database, delete all info attatched to username
+                >>>>IF NOT CONFRIMED, return back to the general settings screen
+    
+PROFILE 
+    >User public information
+        >>photo
+            >>>click on photo-> enlarges photo
+        >>username
+        >>bio
+        >>public posts
+            >>>click on post thumbnails -> viewing full post
+                >>>>click on back button from post ->return to profile
+    >User private information
+        >>email
+        >>private posts thumbnails
+            >>>click on post thumbnail ->viewing posts
+                >>>>click on back button from post->takes you back to profile
+    >toolbar
+        >>click on toolbar items -> take you to the screen
+FEED 
+    >interact with post ->upvote/downvote/commenting
+        >>add this to personal user statistics
+        >>increment/decrement status on post, store this in the posting users stats
+    >toolbar    
+        >>click on toolbar items-> take you to the seperate screen
+SEARCH 
+    >specific search dialogue
+        >select profiles, or content
+            >user selects profiles-> algorithm filters results to be only profiles based on input
+            >user selects content-> algorithm filters results to be only content based on the users input
+    

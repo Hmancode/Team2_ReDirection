@@ -1,0 +1,56 @@
+# login.py
+
+import tkinter as tk
+from tkinter import messagebox
+from user_database import UserDatabase
+from styles import PURPLE, GOLD, LOGO_FONT, TEXT_FONT, INPUT_FONT
+
+db = UserDatabase()
+
+def launch_login():
+    root = tk.Tk()
+    root.title("Login - ReDirection")
+    root.geometry("400x400")
+    root.configure(bg="white")
+
+    # --- Logo Header ---
+    logo_frame = tk.Frame(root, bg="white")
+    logo_frame.pack(pady=30)
+
+    tk.Label(logo_frame, text="Re", bg="white", fg="black", font=LOGO_FONT).pack(side="left")
+
+    direction_box = tk.Frame(logo_frame, bg=PURPLE, padx=10, pady=5)
+    tk.Label(direction_box, text="Direction", bg=PURPLE, fg=GOLD, font=LOGO_FONT).pack()
+    direction_box.pack(side="left", padx=(10, 0))
+
+    # --- Form Frame ---
+    form_frame = tk.Frame(root, bg="white")
+    form_frame.pack(pady=10)
+
+    entries = {}
+
+    for field in ["Username", "Password"]:
+        tk.Label(form_frame, text=field, font=TEXT_FONT, bg="white").pack(anchor="w", padx=20, pady=(10, 0))
+        show_char = "*" if field == "Password" else ""
+        entry = tk.Entry(form_frame, font=INPUT_FONT, show=show_char, width=30)
+        entry.pack(padx=20, pady=5)
+        entries[field] = entry
+
+    # --- Login Button ---
+    def on_login():
+        username = entries["Username"].get()
+        password = entries["Password"].get()
+
+        if not username or not password:
+            messagebox.showerror("Error", "All fields are required.")
+            return
+
+        if db.login(username, password):
+            messagebox.showinfo("Success", "Login successful!")
+            root.destroy()
+        else:
+            messagebox.showerror("Login Failed", "Invalid username or password.")
+
+    tk.Button(root, text="Login", font=TEXT_FONT, bg=PURPLE, fg="white", command=on_login).pack(pady=20)
+
+    root.mainloop()

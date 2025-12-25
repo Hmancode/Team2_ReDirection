@@ -1,0 +1,11 @@
+​​<div class="post" id="post-2">
+  <p>My presentation was a disaster.</p>
+  <button onclick="deletePost(2)">Delete</button>
+</div>
+
+<script>
+function deletePost(postId) {
+  console.log("Delete post " + postId);
+  // Later: remove from UI and backend
+}
+</script>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Redirection</title>
+    <!-- Tailwind CSS for modern styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4">
+
+    <div class="bg-white p-8 md:p-12 rounded-xl shadow-2xl max-w-md w-full border-t-8 border-indigo-600">
+        <h1 class="text-4xl font-extrabold text-indigo-700 mb-2 text-center">Redirection</h1>
+        <p class="text-gray-600 text-center mb-8 text-sm">Create an account to join our community.</p>
+
+        <!-- Error Message -->
+        <div th:if="${error}" class="mb-6 p-4 bg-red-100 border-l-4 border-red-500 text-red-700 rounded">
+            <p class="font-semibold">Registration Error</p>
+            <p class="text-sm" th:text="${error}">Username already exists or another error occurred.</p>
+        </div>
+
+        <form th:action="@{/register}" method="post" class="space-y-6">
+            <!-- Username Field -->
+            <div>
+                <label for="username" class="block text-sm font-semibold text-gray-700 mb-2">Username</label>
+                <input type="text" id="username" name="username" required 
+                       class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-indigo-600 focus:ring-2 focus:ring-indigo-200 transition" 
+                       placeholder="Choose a username">
+            </div>
+
+            <!-- Password Field -->
+            <div>
+                <label for="password" class="block text-sm font-semibold text-gray-700 mb-2">Password</label>
+                <input type="password" id="password" name="password" required 
+                       class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-indigo-600 focus:ring-2 focus:ring-indigo-200 transition" 
+                       placeholder="Create a strong password">
+            </div>
+
+            <!-- Register Button -->
+            <button type="submit" 
+                    class="w-full py-3 px-6 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-[1.01] focus:outline-none focus:ring-4 focus:ring-indigo-500 focus:ring-opacity-50">
+                Create Account
+            </button>
+        </form>
+
+        <!-- Login Link -->
+        <p class="mt-8 text-center text-gray-600 text-sm">
+            Already have an account? 
+            <a th:href="@{/login}" class="text-indigo-600 font-semibold hover:underline">Log in here</a>
+        </p>
+
+        <!-- Back to Home Link -->
+        <p class="mt-4 text-center">
+            <a th:href="@{/}" class="text-gray-500 hover:text-gray-700 text-sm">Back to Home</a>
+        </p>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${pageTitle} + ' - Redirection'"></title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .logo {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 24px;
+            color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .post-expandable {
+            cursor: pointer;
+        }
+        .post-expandable:hover {
+            background-color: #f9fafb;
+        }
+        .post-details {
+            display: none;
+        }
+        .post-details.expanded {
+            display: block;
+        }
+    </style>
+    <script>
+        function togglePost(postId) {
+            const details = document.getElementById('details-' + postId);
+            const toggleText = document.getElementById('toggle-text-' + postId);
+            details.classList.toggle('expanded');
+            
+            if (details.classList.contains('expanded')) {
+                toggleText.textContent = 'Compress';
+            } else {
+                toggleText.textContent = 'Expand';
+            }
+        }
+    </script>
+</head>
+<body class="p-4 md:p-8">
+
+    <!-- Logo in Top-Left Corner -->
+    <div class="fixed top-4 left-4 z-50">
+        <a href="/dashboard" class="logo hover:shadow-lg transition duration-300 transform hover:scale-110">
+            R
+        </a>
+    </div>
+    <div class="max-w-4xl mx-auto mb-8">
+        <div class="bg-white rounded-xl shadow-lg p-6 md:p-8 border-t-8 border-indigo-600 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+            <div>
+                <h1 class="text-3xl md:text-4xl font-extrabold text-indigo-700" th:text="${pageTitle}">Feed</h1>
+                <p class="text-gray-600 text-sm mt-1">Engage with your community</p>
+            </div>
+            
+            <div class="flex flex-wrap gap-3">
+                <!-- Navigation Toggle -->
+                <div th:if="${pageTitle == 'Community Feed (All Posts)'}">
+                    <a th:href="@{/posts}" 
+                       class="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg transition duration-300">
+                        My Posts
+                    </a>
+                </div>
+                <div th:if="${pageTitle == 'My Posts'}">
+                    <a th:href="@{/allposts}" 
+                       class="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg transition duration-300">
+                        All Posts
+                    </a>
+                </div>
+
+                <!-- Home & Logout -->
+                <a href="/dashboard" class="px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white font-semibold rounded-lg transition duration-300">
+                    Home
+                </a>
+                <form action="/logout" method="post" class="inline">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                    <button type="submit" class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg transition duration-300">
+                        Logout
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create Post Form -->
+    <div class="max-w-4xl mx-auto mb-8">
+        <div class="bg-white rounded-xl shadow-lg p-6 md:p-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">Create a New Post</h2>
+            <form th:action="@{/posts}" method="post">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                <textarea name="text" rows="4" 
+                          th:placeholder="|What's on your mind, ${username}?|"
+                          required
+                          class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-indigo-600 focus:ring-2 focus:ring-indigo-200 transition resize-none"
+                          placeholder="What's on your mind?"></textarea>
+                <button type="submit" 
+                        class="mt-4 w-full py-3 px-6 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-[1.01]">
+                    Submit Post
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Posts Feed -->
+    <div class="max-w-4xl mx-auto space-y-6">
+        <div th:each="post : ${posts}" class="bg-white rounded-xl shadow-lg p-6 md:p-8 hover:shadow-xl transition duration-300 post-expandable" th:onclick="|togglePost(${post.id})|">
+            
+            <!-- Post Header (Always Visible) -->
+            <div class="border-b border-gray-200 pb-4 mb-4">
+                <h2 class="text-xl font-bold text-indigo-700 mb-1" th:text="|@${post.username}|"></h2>
+                <p class="text-gray-700 text-base leading-relaxed" th:text="${post.text}"></p>
+            </div>
+
+            <!-- Post Stats (Always Visible) -->
+            <div class="flex flex-wrap gap-6 text-sm font-semibold">
+                <div class="flex items-center gap-2">
+                    <span class="text-gray-600">Upvotes:</span>
+                    <span class="text-green-600" th:text="${post.upvotes}"></span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="text-gray-600">Downvotes:</span>
+                    <span class="text-red-600" th:text="${post.downvotes}"></span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="text-gray-600">Score:</span>
+                    <span th:if="${post.upvotes - post.downvotes > 0}" class="text-green-600 font-bold" th:text="'+ ' + ${post.upvotes - post.downvotes}"></span>
+                    <span th:if="${post.upvotes - post.downvotes < 0}" class="text-red-600 font-bold" th:text="${post.upvotes - post.downvotes}"></span>
+                    <span th:if="${post.upvotes - post.downvotes == 0}" class="text-gray-600">0</span>
+                </div>
+                <div class="flex items-center gap-2 ml-auto cursor-pointer text-indigo-600 hover:text-indigo-700 font-semibold">
+                    <span th:id="|toggle-text-${post.id}|">Expand</span>
+                </div>
+            </div>
+
+            <!-- Vote Buttons and Comments (Hidden by Default) -->
+            <div th:id="|details-${post.id}|" class="post-details">
+                <!-- Vote Buttons -->
+                <div class="flex flex-wrap gap-3 mb-6 pt-6 border-t border-gray-200">
+                    <form th:action="@{'/posts/' + ${post.id} + '/upvote'}" method="post" class="inline" onclick="event.stopPropagation();">
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                        <button type="submit" 
+                                class="px-4 py-2 bg-green-100 hover:bg-green-200 text-green-700 font-semibold rounded-lg border border-green-300 transition duration-300">
+                            Upvote
+                        </button>
+                    </form>
+
+                    <form th:action="@{'/posts/' + ${post.id} + '/downvote'}" method="post" class="inline" onclick="event.stopPropagation();">
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                        <button type="submit" 
+                                class="px-4 py-2 bg-red-100 hover:bg-red-200 text-red-700 font-semibold rounded-lg border border-red-300 transition duration-300">
+                            Downvote
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Comments Section -->
+                <div class="mb-4">
+                    <h3 class="text-lg font-bold text-gray-800 mb-4">
+                        Comments <span class="text-indigo-600" th:text="'(' + ${post.comments.size()} + ')'"></span>
+                    </h3>
+
+                    <!-- Display Comments -->
+                    <div th:if="${post.comments.size() > 0}" class="space-y-3 mb-4">
+                        <div th:each="c : ${post.comments}" 
+                             class="bg-gray-50 p-3 rounded-lg border-l-4 border-indigo-400">
+                            <p class="text-gray-700 text-sm" th:text="${c}"></p>
+                        </div>
+                    </div>
+
+                    <div th:if="${post.comments.size() == 0}" class="text-gray-500 text-sm italic mb-4">
+                        No comments yet. Be the first to comment!
+                    </div>
+
+                    <!-- Comment Form -->
+                    <form th:action="@{'/posts/' + ${post.id} + '/comment'}" method="post" class="space-y-3" onclick="event.stopPropagation();">
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                        <textarea name="comment" rows="2" 
+                                  placeholder="Add a thoughtful comment..."
+                                  required
+                                  class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-indigo-600 focus:ring-2 focus:ring-indigo-200 transition resize-none text-sm"></textarea>
+                        <button type="submit" 
+                                class="w-full py-2 px-4 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-lg transition duration-300">
+                            Post Comment
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Empty State -->
+        <div th:if="${posts.size() == 0}" class="bg-white rounded-xl shadow-lg p-12 text-center">
+            <p class="text-gray-600 text-lg">No posts yet. Be the first to start a conversation!</p>
+        </div>
+    </div>
+
+</body>
+</html>

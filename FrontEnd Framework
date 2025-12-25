@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ReDirection - Sprint 1</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      max-width: 700px;
+      margin: 20px auto;
+      padding: 10px;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .post {
+      background: white;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 6px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .buttons {
+      margin-top: 10px;
+    }
+    button {
+      background: #ddd;
+      border: none;
+      padding: 6px 12px;
+      margin-right: 8px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #bbb;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>ReDirection</h1>
+    <p>Anonymous Feed - Sprint 1</p>
+  </header>
+
+  <main>
+    <div class="post">
+      <p>I didn’t get a job interview after applying to 20 places last month.</p>
+      <div class="buttons">
+        <button>Downvote</button>
+        <button>Delete</button>
+        <button>Edit</button>
+      </div>
+    </div>
+
+    <div class="post">
+      <p>My presentation was a disaster, I blanked on all the questions.</p>
+      <div class="buttons">
+        <button>Downvote</button>
+        <button>Delete</button>
+        <button>Edit</button>
+      </div>
+    </div>
+
+    <div class="post">
+      <p>Got rejected because of a typo in my resume. Lesson learned!</p>
+      <div class="buttons">
+        <button>Downvote</button>
+        <button>Delete</button>
+        <button>Edit</button>
+      </div>
+    </div>
+  </main>
+</body>
+</html>
+
+

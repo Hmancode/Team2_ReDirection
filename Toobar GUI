@@ -1,0 +1,39 @@
+import javax.swing.*;
+import java.awt.*;
+
+public class RedirectionToolbar {
+
+    public static void main(String[] args) {
+        // Create the main frame
+        JFrame frame = new JFrame("Redirection Toolbar");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(600, 400); // Initial size
+        frame.setLocationRelativeTo(null); // Center on screen
+
+        // Create a toolbar
+        JToolBar toolbar = new JToolBar("Main Toolbar");
+        toolbar.setFloatable(false); // Fixed toolbar
+
+        // Add the buttons: Comment, Upvote, Downvote
+        JButton commentButton = new JButton("Comment");
+        JButton upvoteButton = new JButton("Upvote");
+        JButton downvoteButton = new JButton("Downvote");
+
+        toolbar.add(commentButton);
+        toolbar.add(upvoteButton);
+        toolbar.add(downvoteButton);
+
+        // Create a main panel to hold other content
+        JPanel mainPanel = new JPanel();
+        mainPanel.setLayout(new BorderLayout());
+        mainPanel.add(toolbar, BorderLayout.NORTH);
+
+        // Placeholder for app content
+        JTextArea textArea = new JTextArea("Content area for Redirection app...");
+        textArea.setEditable(false);
+        mainPanel.add(new JScrollPane(textArea), BorderLayout.CENTER);
+
+        frame.setContentPane(mainPanel);
+        frame.setVisible(true);
+    }
+}
